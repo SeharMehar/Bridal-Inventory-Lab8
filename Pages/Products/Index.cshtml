@@ -1,0 +1,91 @@
+﻿@page
+@model Lab_8.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Bridal Products";
+}
+
+<h1>Bridal Inventory Management</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">
+        Add New Bridal Product
+    </a>
+</p>
+
+@if (Model.BridalProducts.Count == 0)
+{
+    <div class="alert alert-info">
+        No bridal products found. Add your first product.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.BridalProducts)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(product.Image))
+                            {
+                                <img src="@Url.Content("~/" + product.Image)"
+                                     alt="@product.Title"
+                                     style="width:70px;height:70px;object-fit:cover"
+                                     class="rounded border" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Image</span>
+                            }
+                        </td>
+                        <td>@product.Title</td>
+                        <td>@product.Description</td>
+                        <td>Rs. @product.Price</td>
+                        <td>@product.Quantity</td>
+                        <td>
+                            <span class="badge @(product.Status == "Available" ? "bg-success" : "bg-danger")">
+                                @product.Status
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-page="Details"
+                               asp-route-id="@product.Id"
+                               class="btn btn-sm btn-info">Details</a>
+
+                            <a asp-page="Edit"
+                               asp-route-id="@product.Id"
+                               class="btn btn-sm btn-warning">Edit</a>
+
+                            <a asp-page="Delete"
+                               asp-route-id="@product.Id"
+                               class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

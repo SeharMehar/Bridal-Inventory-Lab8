@@ -1,0 +1,38 @@
+﻿@page "{id:int}"
+@model Lab_8.Pages.Products.DetailsModel
+
+@{
+    ViewData["Title"] = "Bridal Product Details";
+}
+
+<h1>Bridal Product Details</h1>
+
+<div class="card" style="max-width:600px">
+    <div class="card-body">
+        <h4>@Model.BridalProduct.Title</h4>
+
+        @if (!string.IsNullOrEmpty(Model.BridalProduct.Image))
+        {
+            <img src="@Url.Content("~/" + Model.BridalProduct.Image)"
+                 alt="@Model.BridalProduct.Title"
+                 style="width:200px;height:200px;object-fit:cover"
+                 class="mb-3 rounded border" />
+        }
+
+        <p><strong>ID:</strong> @Model.BridalProduct.Id</p>
+        <p><strong>Description:</strong> @Model.BridalProduct.Description</p>
+        <p><strong>Price:</strong> Rs. @Model.BridalProduct.Price</p>
+        <p><strong>Quantity:</strong> @Model.BridalProduct.Quantity</p>
+        <p>
+            <strong>Status:</strong>
+            <span class="badge @(Model.BridalProduct.Status == "Available" ? "bg-success" : "bg-danger")">
+                @Model.BridalProduct.Status
+            </span>
+        </p>
+
+        <a asp-page="Edit" asp-route-id="@Model.BridalProduct.Id"
+           class="btn btn-warning">Edit</a>
+
+        <a asp-page="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

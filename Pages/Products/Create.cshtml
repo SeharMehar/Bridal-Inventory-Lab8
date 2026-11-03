@@ -1,0 +1,58 @@
+﻿@page
+@model Lab_8.Pages.Products.CreateModel
+
+@{
+    ViewData["Title"] = "Add Bridal Product";
+}
+
+<h1>Add Bridal Product</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Title" class="form-label">Title</label>
+        <input asp-for="BridalProduct.Title" class="form-control" />
+        <span asp-validation-for="BridalProduct.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Description" class="form-label">Description</label>
+        <input asp-for="BridalProduct.Description" class="form-control" />
+        <span asp-validation-for="BridalProduct.Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Product Image</label>
+        <input asp-for="ImageFile" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Price" class="form-label">Price</label>
+        <input asp-for="BridalProduct.Price" type="number" min="0" class="form-control" />
+        <span asp-validation-for="BridalProduct.Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Quantity" class="form-label">Quantity</label>
+        <input asp-for="BridalProduct.Quantity" type="number" min="0" class="form-control" />
+        <span asp-validation-for="BridalProduct.Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Status" class="form-label">Status</label>
+        <select asp-for="BridalProduct.Status" class="form-select">
+            <option value="Available">Available</option>
+            <option value="Not-Available">Not Available</option>
+        </select>
+        <span asp-validation-for="BridalProduct.Status" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Product</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

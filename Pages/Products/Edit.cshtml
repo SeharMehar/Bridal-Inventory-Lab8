@@ -1,0 +1,78 @@
+﻿@page "{id:int}"
+@model Lab_8.Pages.Products.EditModel
+
+@{
+    ViewData["Title"] = "Edit Bridal Product";
+}
+
+<h1>Edit Bridal Product</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="BridalProduct.Id" />
+    <input type="hidden" asp-for="BridalProduct.Image" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Title" class="form-label">Title</label>
+        <input asp-for="BridalProduct.Title" class="form-control" />
+        <span asp-validation-for="BridalProduct.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Description" class="form-label">Description</label>
+        <input asp-for="BridalProduct.Description" class="form-control" />
+        <span asp-validation-for="BridalProduct.Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Current Image</label>
+        <div>
+            @if (!string.IsNullOrEmpty(Model.BridalProduct.Image))
+            {
+                <img src="@Url.Content("~/" + Model.BridalProduct.Image)"
+                     alt="@Model.BridalProduct.Title"
+                     style="width:120px;height:120px;object-fit:cover"
+                     class="rounded border mb-2" />
+            }
+            else
+            {
+                <p class="text-muted">No image uploaded.</p>
+            }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Replace Image (optional)</label>
+        <input asp-for="ImageFile" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Price" class="form-label">Price</label>
+        <input asp-for="BridalProduct.Price" type="number" min="0" class="form-control" />
+        <span asp-validation-for="BridalProduct.Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Quantity" class="form-label">Quantity</label>
+        <input asp-for="BridalProduct.Quantity" type="number" min="0" class="form-control" />
+        <span asp-validation-for="BridalProduct.Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BridalProduct.Status" class="form-label">Status</label>
+        <select asp-for="BridalProduct.Status" class="form-select">
+            <option value="Available">Available</option>
+            <option value="Not-Available">Not Available</option>
+        </select>
+        <span asp-validation-for="BridalProduct.Status" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Product</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
